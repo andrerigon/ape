@@ -16,14 +16,10 @@ public class SeleniumStatement extends Statement {
 	private final Statement orginalStatement;
 	private final FrameworkMethod method;
 
-	private final SeleniumRCServer server;
-
-	public SeleniumStatement(SeleniumTestCase testCase, Statement orginalStatement, FrameworkMethod method,
-			SeleniumRCServer server) {
+	public SeleniumStatement(SeleniumTestCase testCase, Statement orginalStatement, FrameworkMethod method) {
 		this.testCase = testCase;
 		this.orginalStatement = orginalStatement;
 		this.method = method;
-		this.server = server;
 	}
 
 	public void evaluate() throws Throwable {
@@ -40,8 +36,8 @@ public class SeleniumStatement extends Statement {
 	}
 
 	private void startSeleniumRCIfNeeded() throws Exception {
-		if (testCase.useEmbbebedSeleniumRC() && server != null && !server.isStarted()) {
-			server.start(testCase.config().port());
+		if (testCase.useEmbbebedSeleniumRC()) {
+			SeleniumRCServer.INSTANCE.start();
 		}
 	}
 

@@ -34,7 +34,7 @@ public abstract class SeleniumBaseTest implements SeleniumTestCase {
 	private final ErrorScreenshotPath screenshotDir;
 
 	private final Map<String, SeleniumElement> map = new WeakHashMap<String, SeleniumElement>();
-	
+
 	public SeleniumBaseTest() {
 		config = getClass().getAnnotation(SeleniumDriverConfig.class);
 		if (config == null) {
@@ -52,7 +52,7 @@ public abstract class SeleniumBaseTest implements SeleniumTestCase {
 	}
 
 	@Rule
-	public SeleniumRule seleniumRule = SeleniumRule.defaultRule();
+	public SeleniumRule seleniumRule = new SeleniumRule();
 
 	@Override
 	public boolean useEmbbebedSeleniumRC() {
@@ -64,8 +64,8 @@ public abstract class SeleniumBaseTest implements SeleniumTestCase {
 		defineWindowSize();
 		defineDelay();
 	}
-	
-	public SeleniumDriverConfig config(){
+
+	public SeleniumDriverConfig config() {
 		return config;
 	}
 

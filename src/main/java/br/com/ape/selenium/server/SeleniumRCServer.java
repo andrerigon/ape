@@ -1,21 +1,21 @@
 package br.com.ape.selenium.server;
 
+import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 
-public class SeleniumRCServer {
+public enum SeleniumRCServer {
 
-	private final SeleniumServer server;
+	INSTANCE;
 
-	public SeleniumRCServer(SeleniumServer server) {
-		super();
-		this.server = server;
-	}
+	private SeleniumServer server;
 
-	public void start(int port) throws Exception {
+	public void start() throws Exception {
 		if (isStarted()) {
 			return;
 		}
-		server.getConfiguration().setPort(port);
+		RemoteControlConfiguration config = new RemoteControlConfiguration();
+		config.setPort(7986);
+		server = new SeleniumServer(config);
 		server.start();
 	}
 
