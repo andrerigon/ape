@@ -10,6 +10,11 @@
 	<name>ape</name>
 	<url>http://maven.apache.org</url>
 
+	<scm>
+		<connection>scm:git:git@github.com:andrerigon/ape.git</connection>
+		<developerConnection>scm:git:git@github.com:andrerigon/ape.git</developerConnection>
+	</scm>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<powermock.version>1.4.6</powermock.version>
