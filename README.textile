@@ -1,0 +1,99 @@
+h2. WHY?
+
+Ape is a library to make selenium tests easy, providing some utilities and using conventions to make your tests easy to write and read.
+
+h2. INSTALLATION
+
+<pre>
+<code>git clone git://github.com/andrerigon/ape.git
+cd ape
+mvn install</code>
+</pre>
+
+h2. USAGE
+
+create your test and extend SeleniumBaseTest. This allows you to use several assertions like:
+
+<pre>
+<code>
+assertPresent(String elementLocator)
+</code>
+</pre>
+
+also you can use the raw api to manipulate elements of the page:
+
+<pre>
+<code>
+on(String elementLocator).click()
+</code>
+</pre>
+
+or you can even access selenium driver directly
+
+<pre>
+<code>
+selenium()
+</code>
+</pre>
+
+After extend SeleniumBaseTest, you have to provide information about the selenium driver. To do that, just annotate your test (or your base test) with:
+
+<pre>
+<code>
+@SeleniumDriverConfig(baseURL="http://base", host="http://mySeleniumRCURL", browser="*firefox", port = "1234")
+</code>
+</pre>
+
+If you don't want or don't have setup a selenium RC server, just use:
+
+<pre>
+<code>
+@SeleniumDriverConfig(useEmbbebedSeleniumRC = true)
+</code>
+</pre>
+
+and a instance of SeleniumRC will be created for you.
+
+h2. ADITIONAL OPTIONS
+
+If you want your tests windows to be maximized, use:
+
+<pre>
+<code>
+@MaximizedBrowserWindow
+</code>
+</pre>
+
+To slow down selenium action commands, just define a diferent delay:
+
+<pre>
+<code>
+@SeleniumActionDelay(delay = 500, timeUnit = TimeUnit.MILLISECONDS)
+</code>
+</pre>
+
+h2. AUTHENTICATED TESTS
+
+When running your tests, frequently (all the time?) your test need to login in the system.
+To simplify that, take the following steps:
+
+
+<ol>
+<li>make you test or base test to implements AuthenticatedTest</li>
+<li>define a junit rule: 	
+<pre><code> 
+@Rule public final AuthenticationRule visaoLoginRule = AuthenticationRule.defaultUserAndPasswd("test_user", "123");
+</code>
+</pre>
+</li>
+<li>annotate your test methods with @Authenticate</li>
+</ol>
+
+If you want to use another credentials, define them in the @Authenticate:
+
+<pre>
+<code>
+@Authenticate(username="test_user2", password="456")
+</code>
+</pre>
+
