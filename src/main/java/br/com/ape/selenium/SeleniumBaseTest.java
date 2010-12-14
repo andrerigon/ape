@@ -25,7 +25,7 @@ import com.thoughtworks.selenium.Selenium;
 
 public abstract class SeleniumBaseTest implements SeleniumTestCase {
 
-	protected final Selenium selenium;
+	private final Selenium selenium;
 
 	private final SeleniumDriverConfig config;
 
@@ -160,5 +160,9 @@ public abstract class SeleniumBaseTest implements SeleniumTestCase {
 
 	protected void assertNotPresent(String element) throws InterruptedException {
 		assertThat(on(element).notPresentUntil(timeout.presenceTimeoutInMillis()), is(true));
+	}
+
+	protected Selenium selenium() {
+		return selenium;
 	}
 }
