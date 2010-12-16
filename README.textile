@@ -54,7 +54,7 @@ If you don't want or don't have setup a selenium RC server, just use:
 
 and a instance of SeleniumRC will be created for you.
 
-h2. ADITIONAL OPTIONS
+h2. ADDITIONAL OPTIONS
 
 If you want your tests windows to be maximized, use:
 
@@ -71,6 +71,25 @@ To slow down selenium action commands, just define a diferent delay:
 @SeleniumActionDelay(delay = 500, timeUnit = TimeUnit.MILLISECONDS)
 </code>
 </pre>
+
+When a test fail, the firefox browser closes and its difficult to know in what state the page was.
+To help, ape generates an screenshot of the page at the error moment in the /tmp directory.
+The name of the file is:
+
+<pre>
+<code>
+screenshot_<test class name>_<mehtod name>.png
+</code>
+</pre>
+
+If yout want to change the default dir, just annotate your test with:
+
+<pre>
+<code>
+@ErrorScreenshotPath("my new path")
+</code>
+</pre>
+ 
 
 h2. AUTHENTICATED TESTS
 
