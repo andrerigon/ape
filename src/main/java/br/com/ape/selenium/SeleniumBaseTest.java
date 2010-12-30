@@ -162,6 +162,18 @@ public abstract class SeleniumBaseTest implements SeleniumTestCase {
 		assertThat(on(element).notPresentUntil(timeout.presenceTimeoutInMillis()), is(true));
 	}
 
+	protected void assertValue(String elem, String value) {
+		assertThat(selenium.getValue(elem), is(value));
+	}
+
+	protected void assertChecked(String elem) {
+		assertThat(selenium.isChecked(elem), is(true));
+	}
+	
+	protected void assertNotChecked(String elem) {
+		assertThat(selenium.isChecked(elem), is(false));
+	}
+
 	protected Selenium selenium() {
 		return selenium;
 	}
