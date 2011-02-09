@@ -1,4 +1,4 @@
-package br.com.ape;
+package br.com.ape.selenium;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -11,7 +11,7 @@ import br.com.ape.selenium.config.SeleniumDriverConfig;
 import br.com.ape.selenium.server.rule.SeleniumRule;
 
 public class SeleniumBaseTestTest {
-	
+
 
 	private static final String BASE_URL = "baseURL";
 	private static final String BROWSER= "IE. hehehehe";
@@ -32,10 +32,10 @@ public class SeleniumBaseTestTest {
 		assertThat( HOST , equalTo( config.host() ));
 		assertThat( PORT , equalTo( config.port() ));
 	}
-	
+
 	@Test
 	public void shouldStartSeleniumTest(){
-		
+
 	}
 
 	private SeleniumBaseTest sampleSeleniumBaseTest() {
