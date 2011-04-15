@@ -6,6 +6,10 @@ import br.com.ape.selenium.server.rule.SeleniumRule;
 import br.com.ape.selenium.util.AnnotationDefault;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Assert;
 
@@ -110,7 +114,11 @@ public abstract class SeleniumBaseTest implements SeleniumTestCase {
     }
 
     protected void assertPresent(String element) throws InterruptedException {
-        assertThat(on(element).isPresentUntil(timeout.presenceTimeoutInMillis()), is(true));
+        assertThat(isPresent(element), is(true));
+    }
+    
+    protected boolean isPresent(String element) throws InterruptedException{
+    	return on(element).isPresentUntil(timeout.presenceTimeoutInMillis());
     }
 
     protected void assertPresentAndClick(String element) throws InterruptedException {
@@ -212,4 +220,50 @@ public abstract class SeleniumBaseTest implements SeleniumTestCase {
     protected Selenium selenium() {
         return selenium;
     }
+    
+    // matchers
+    
+	public Matcher<String> hasNumberOfRowsGreaterThan(final int rows) {
+		return new TypeSafeMatcher<String>() {
+
+			@Override
+			public void describeTo(Description description) {
+				description.appendText("table should have " + rows + " rows");
+			}
+
+			@Override
+			public boolean matchesSafely(String table) {
+				try {
+					return isPresent(String.format("%s/tbody[count(tr)>%d]", table, rows));
+				} catch (InterruptedException e) {
+					throw new IllegalArgumentException("could not assert number of rows", e);
+				}
+
+			}
+		};
+	}
+
+	public static String table(String id) {
+		return String.format("//table[@id='%s']", id);
+	}
+
+
+	public Matcher<String> isPresentAt(final String locator) {
+		return new TypeSafeMatcher<String>() {
+
+			@Override
+			public void describeTo(Description description) {
+			}
+
+			@Override
+			public boolean matchesSafely(String text) {
+				try {
+					return isPresent(locator) && text.equals(on(locator).text());
+				} catch (InterruptedException e) {
+					throw new IllegalArgumentException(String.format("element %s does not contains text '%s'", locator, text));
+				}
+			}
+
+		};
+	}
 }

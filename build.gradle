@@ -15,6 +15,18 @@ dependencies {
   compile "junit:junit:4.8.1"
   compile "org.hamcrest:hamcrest-all:1.1"
   compile "org.seleniumhq.selenium:selenium:2.0a5"
-  compile "org.seleniumhq.selenium:selenium-server:2.0a5"
+  compile "org.seleniumhq.selenium:selenium-server:2.0b3"
   compile "org.mockito:mockito-all:1.8.5"
 }
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "http://192.168.166.110:8080/archiva/repository/internal/"){
+            authentication(userName: "andre", password: "aw123") 
+        }
+    }
+}
+
+
