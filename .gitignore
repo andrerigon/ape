@@ -7,3 +7,4 @@ ape.iml
 build
 gradle-app.setting
 gradle.properties
+/.settings/
